@@ -91,7 +91,7 @@ public class Piece {
     public void setBoardColor(Board board) {
         for (Squares squares : this.squareArray) {
             board.addToBoard(squares);
-            this.removeSquare();
+            squares.deleteSquare();
         }
     }
     public void removeSquare() {
