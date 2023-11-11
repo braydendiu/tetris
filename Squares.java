@@ -3,7 +3,6 @@ package tetris;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-
 public class Squares {
     private Rectangle square;
     private Color color;
@@ -16,22 +15,12 @@ public class Squares {
         this.square.setFill(color);
         boardPane.getChildren().add(this.square);
     }
-    /*public void setBoardColor(Board board) {
-        for (Squares squares : this.squareArray) {
-            board.addToBoard(squares);
-        }
-    }*/
     public void squareColor(Color color) {
         this.square.setFill(color);
         this.color = color;
     }
-
     public Color getFirstColor() {
         return (Color) this.square.getFill();
-    }
-
-    public Rectangle getSquare() {
-        return this.square;
     }
     public int getRow() {
         return (int)(this.square.getY() / Constants.SQUARE_WIDTH);

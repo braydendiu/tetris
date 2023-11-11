@@ -1,7 +1,48 @@
 README Tetris
 
-OVERVIEW:
+OVERVIEW: This program is meant to be a Tetris game. The game will start with a random piece
+being generated at the top of the screen and will fall down by itself. You can also use
+the down, left, and right arrow keys to move the piece manually. The up arrow key will
+rotate the piece. By clicking the spacebar, the piece will automatically fall down to the
+furthest available spot. There is a class for my board which gets the 22 by 12 grid of
+squares to appear with the grey border. The Board class is also responsible for clearing
+full rows and shifting them down. In my Piece class, it is mainly responsible for generating
+the pieces and their movement by checking if the move is valid within the bounds of the
+board. In my Squares class, this is where the individual squares that make up the board and
+pieces are made. It contains many helper methods for the movement and for the Board and
+Piece class to generate them because they use the squares made in the Squares class. The
+PaneOrganizer class creates the panes used in my game along with the buttons. Lastly, the
+Game class is where I generate the random pieces and handle most of the logic with the
+timeline movement and key presses.
 
-DESIGN CHOICES:
+DESIGN CHOICES: For the design of the project, I decided to have a separate class for my
+board because the squares in my board array would be responsible for a lot of
+functionality in terms of checking if a row is full, setting the full row to black, and
+then shifting the row down. I decided to only have one class for all of my pieces because
+the only thing that's different between the pieces is the coordinates and color, but in
+terms of the functionality, all the pieces are the same. I felt that it made the most sense
+if I had one class for the squares which would make up the board and pieces since they
+would all use the same squares. I had my Game class handle the logic with the key presses
+and timeline and generating the new pieces because I wanted to reduce the amount of logic
+in my other classes as much as possible. My Game class should've handled most of the game's
+logic.
+For this project, I needed many getter methods. For example, the Board class needed
+to shift the row down when a row was full and this was done based on color, so the methods
+needed to get the color of the squares from the Squares class. In order to check if a
+certain movement was valid, I did the check validity methods in my Piece class because
+the whole piece was the object that was moving. So, I used getter methods to get the row
+and column to check if the space was free.
+I also used a 2-D array for my board and a 1-D array for my pieces. This is because the
+board is essentially a 22 by 12 grid of squares, so it makes sense to use a 2-D array
+where it is represented as [row][col]. As for the pieces, I used a 1-D array because
+each piece is just made up of 4 squares and the orientation of the pieces is based off
+of the coordinates, not the squares' place in the array.
+
+KNOWN BUGS: When the pieces start to stack towards the top, some pieces may generate and
+start to overlap before the game can stop for game over. I tried changing the frequency
+of the timeline and when I am checking for game over, but that did not seem to help
+unless I was implementing it wrong. Other than that, I believe everything should be fine!
+
+DEBUGGING COLLABORATORS: None
 
 HOURS SPENT: 15

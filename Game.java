@@ -3,7 +3,6 @@ package tetris;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
@@ -11,47 +10,25 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-//import java.awt.*;
-import java.awt.event.ActionEvent;
-
 public class Game {
-    private Squares[] squareArray;
     private Piece piece;
     private Timeline timeline;
     private Board board;
-    private boolean isSquare;
     private Pane boardPane;
     private int paused;
-    private Pane labelPane;
     private Label label;
-    private BorderPane root;
-    public Game(Pane boardPane, Board board, BorderPane root) {
-        this.root = root;
-        /* for (Node node : piece.getSquareArray()) {
-            if (!boardPane.getChildren().contains(node)) {
-                boardPane.getChildren().add(node);
-            }
-        } */
+
+    public Game(Pane boardPane) {
         this.paused = 1;
         this.boardPane = boardPane;
-        this.board = new Board(boardPane);  // Initialize the board
-        this.generateRandomPiece(boardPane);
-
-        //Label label = new Label();
-        //this.root.setCenter(label);
-        //label.setText("label");
-        //this.piece = new Piece(Constants.OPP_E_PIECE_COORDS, boardPane, Color.RED, board);
-        //boardPane.getChildren().addAll(piece.getSquareArray());
-        //this.pieceI = new Piece(Constants.I_PIECE_COORDS, boardPane);
-        //this.pieceT = new Piece(Constants.T_PIECE_COORDS, boardPane);
-        //boardPane.getChildren().addAll(pieceI.getSquareArray());
-        //boardPane.getChildren().addAll(pieceT.getSquareArray());
-        //this.setUpTimeline();
+        this.board = new Board(boardPane);
+        this.generateRandomPiece();
+        this.setUpTimeline();
         boardPane.setFocusTraversable(true);
         boardPane.setOnKeyPressed((KeyEvent e) -> this.handleKeyPress(e));
     }
 
-    private void generateRandomPiece(Pane boardPane) {
+    private void generateRandomPiece() {
         int rand = (int)(Math.random() * 6);
         switch (rand) {
             case 0:
@@ -62,7 +39,6 @@ public class Game {
                 break;
             case 2:
                 this.piece = new Piece(Constants.CUBE_PIECE_COORDS, boardPane, Color.YELLOW, this.board);
-                this.isSquare = true;
                 break;
             case 3:
                 this.piece = new Piece(Constants.I_PIECE_COORDS, boardPane, Color.SKYBLUE, this.board);
@@ -77,11 +53,10 @@ public class Game {
                 this.piece = new Piece(Constants.E_PIECE_COORDS, boardPane, Color.LIME, this.board);
                 break;
         }
-        this.setUpTimeline(boardPane);
     }
 
-    private void setUpTimeline(Pane boardPane) {
-        KeyFrame kf = new KeyFrame(Duration.seconds(1.2), (ActionEvent) -> this.alwaysCheck(boardPane));
+    private void setUpTimeline() {
+        KeyFrame kf = new KeyFrame(Duration.seconds(0.6), (ActionEvent) -> this.alwaysCheck());
         this.timeline = new Timeline(kf);
         this.timeline.setCycleCount(Animation.INDEFINITE);
         this.timeline.play();
@@ -103,25 +78,26 @@ public class Game {
         }
     }*/
 
-    private void alwaysCheck(Pane boardPane) {
-        this.goDown(boardPane);
-        this.board.removeRow();
+    private void alwaysCheck() {
         if (this.board.isGameOver()) {
+            this.label = new Label("Game Over!");
             this.timeline.stop();
-            Label gameOver = new Label();
-            gameOver.setText("Game Over!");
-            this.root.setCenter(gameOver);
+            this.boardPane.getChildren().add(this.label);
         }
+        this.goDown();
+        this.pieceHitBottom();
+        this.board.removeRow();
     }
 
-    private void goDown(Pane boardPane) {
+    private void goDown() {
         if (this.piece.checkValidity(1, 0) == true) {
             this.piece.moveDown();
         }
-        else {
-            this.timeline.stop();
-            this.piece.setBoardColor(this.board);
-            this.generateRandomPiece(boardPane);
+    }
+    private void pieceHitBottom() {
+        if (this.piece.checkValidity(1,0) == false) {
+                this.piece.setBoardColor(this.board);
+                this.generateRandomPiece();
         }
     }
     private void handleKeyPress(KeyEvent e) {
@@ -157,19 +133,20 @@ public class Game {
                 //this.root.setCenter(gamePaused);
                 if (this.paused < 0){
                     this.timeline.stop();
-
+                    this.label = new Label("Game is paused, press 'p' to resume!");
+                    this.boardPane.getChildren().add(this.label);
                     //Label gamePaused = new Label("Game is paused. Press 'p' to resume!");
                     //this.root.setCenter(gamePaused);
                     //gamePaused.toFront();
                 }
                 else {
                     this.timeline.play();
+                    this.boardPane.getChildren().remove(this.label);
                 }
                 break;
             case SPACE:
                 if (this.piece.checkValidity(1, 0) && this.paused > 0) {
                     this.piece.instantMoveDown();
-                    //this.setUpSpacebarTimeline(this.boardPane);
                 }
             default:
                 break;

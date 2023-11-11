@@ -12,7 +12,6 @@ public class Board {
         this.boardArray = new Squares[Constants.BOARD_ROWS][Constants.BOARD_COLUMNS];
         this.boardPane = boardPane;
         this.setUpBoard();
-        //new Piece(this.boardPane, this.boardArray);
     }
 
     public Pane getBoardPane() {
@@ -36,23 +35,19 @@ public class Board {
             }
         }
     }
-
     public void addToBoard(Squares squares) {
         int row = squares.getRow();
         int col = squares.getCol();
         Color color = squares.getFirstColor();
         this.boardArray[row][col].squareColor(color);
-        //System.out.println("boardsquare color " + this.boardArray[row][col].getFirstColor());
     }
 
     public void removeRow() {
         for (int row = 1; row < Constants.BOARD_ROWS-1; row++) {
             Squares[] currRow = boardArray[row];
-            System.out.println("isFull for row " + row + " " + this.isFull(currRow));
             if (isFull(currRow)) {
                 this.setRowToBlack(row);
                 this.shiftRowDown(row);
-                System.out.println("calling methods");
             }
         }
     }
@@ -72,17 +67,15 @@ public class Board {
         }
     }
     private void shiftRowDown(int row) {
-        System.out.println("shift");
         for (int i = row; i > 1; i--) {
             for (int col = 1; col < Constants.BOARD_COLUMNS-1; col++) {
-                this.boardArray[row][col].setFill(this.boardArray[i-1][col].getFirstColor());
-            }
+                this.boardArray[i][col].setFill(this.boardArray[i-1][col].getFirstColor());            }
         }
     }
     public boolean isGameOver() {
         for (int col = 1; col < Constants.BOARD_COLUMNS-1; col++) {
             if (boardArray[1][col].getFirstColor() != Color.BLACK) {
-                return true; // Game over if any square in the top row is occupied
+                return true;
             }
         }
         return false;

@@ -1,6 +1,5 @@
 package tetris;
 
-import cartoon.Constants;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -23,7 +22,7 @@ public class PaneOrganizer {
         this.setUpButton(buttonPane);
         //HBox labelPane = new HBox();
         //this.root.setTop(labelPane);
-        Game game = new Game(board.getBoardPane(),board, root);
+        Game game = new Game(board.getBoardPane());
         // Add the boardContainer to the center of the root BorderPane
         //this.root.setCenter(boardContainer);
         //Board board = new Board(this.root);

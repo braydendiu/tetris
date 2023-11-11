@@ -13,7 +13,6 @@ public class Piece {
     public Piece(int [][] coords, Pane boardPane, Color color, Board board) {
         this.boardPane = boardPane;
         this.squareArray = new Squares[4];
-        //Color color = null;
         this.board = board;
         this.generatePiece(coords, boardPane, color);
     }
@@ -61,7 +60,6 @@ public class Piece {
         }
         return true;
     }
-
     public boolean checkRotateValidity() {
         int centerOfRotationX = this.squareArray[0].getX();
         int centerOfRotationY = this.squareArray[0].getY();
@@ -91,11 +89,6 @@ public class Piece {
     public void setBoardColor(Board board) {
         for (Squares squares : this.squareArray) {
             board.addToBoard(squares);
-            squares.deleteSquare();
-        }
-    }
-    public void removeSquare() {
-        for (Squares squares : this.squareArray) {
             squares.deleteSquare();
         }
     }
