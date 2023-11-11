@@ -63,8 +63,7 @@ public class Squares {
     public void setFill(Color color) {
         this.square.setFill(color);
     }
-
-    public void removePiece() {
+    public void deleteSquare() {
         this.boardPane.getChildren().remove(this.square);
     }
 

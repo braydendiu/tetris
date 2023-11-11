@@ -42,7 +42,6 @@ public class Board {
         int col = squares.getCol();
         Color color = squares.getFirstColor();
         this.boardArray[row][col].squareColor(color);
-        this.boardArray[row][col].removePiece();
         //System.out.println("boardsquare color " + this.boardArray[row][col].getFirstColor());
     }
 
@@ -72,11 +71,11 @@ public class Board {
             this.boardArray[row][col].setFill(Color.BLACK);
         }
     }
-
     private void shiftRowDown(int row) {
-        for (int i = row; i > 1; i--) {
+        System.out.println("shift");
+        for (int i = row - 1; i > 1; i--) {
             for (int col = 1; col < Constants.BOARD_COLUMNS-1; col++) {
-                this.boardArray[row][col].setFill(this.boardArray[i-1][col].getFirstColor());
+                this.boardArray[row][col].setFill(this.boardArray[row-1][col].getFirstColor());
             }
         }
     }
