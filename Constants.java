@@ -19,6 +19,4 @@ public class Constants {
     public static final int BOARD_ROWS = 22;
     public static final int BOARD_COLUMNS = 12;
     public static final int SQUARE_OFFSET = 30;
-    public static final int LABEL_PANE_WIDTH = 90;
-    public static final int LABEL_PANE_HEIGHT = 60;
 }
