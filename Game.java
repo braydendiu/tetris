@@ -32,7 +32,7 @@ public class Game {
      * piece with different coordinates and colors.
      */
     private void generateRandomPiece() {
-        int rand = (int)(Math.random() * 6);
+        int rand = (int)(Math.random() * 7);
         switch (rand) {
             case 0:
                 this.piece = new Piece(Constants.OPP_E_PIECE_COORDS, this.boardPane, Color.PINK, this.board);
@@ -52,8 +52,10 @@ public class Game {
             case 5:
                 this.piece = new Piece(Constants.OPP_L_PIECE_COORDS, this.boardPane, Color.BLUE, this.board);
                 break;
-            default:
+            case 6:
                 this.piece = new Piece(Constants.E_PIECE_COORDS, this.boardPane, Color.LIME, this.board);
+                break;
+            default:
                 break;
         }
     }
